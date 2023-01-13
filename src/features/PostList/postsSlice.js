@@ -25,7 +25,7 @@ const postListSlice = createSlice({
     name: 'posts',
     initialState: {
         posts: [],
-        searchType: 'search', //default search type
+        searchType: '', //default search type
         isLoading: false,
         hasError: false,
     },
@@ -66,5 +66,7 @@ const postListSlice = createSlice({
 });
 
 export const selectType = (state) => state.searchType;
+
+export const { setSearchType } = postListSlice.actions;
 
 export default postListSlice.reducer

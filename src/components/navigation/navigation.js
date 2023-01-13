@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './navigation.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectType } from '../../features/PostList/postsSlice';
+import { useDispatch } from 'react-redux';
+import { setSearchType } from '../../features/PostList/postsSlice';
 
-export const Navigation = (props) => {
-    const [radio, setRadio] = useState('query');
-    const currentType = useSelector(selectType);
+export const Navigation = ({ type }) => {
+
+    const [radio, setRadio] = useState(type);
+    
     const dispatch = useDispatch();
 
-    const handleChange = (e) => {
+    const handleClick = (e) => {
         setRadio(e);
-        dispatch(selectType({ type: e }));
+        dispatch(setSearchType({type: e}));
     }
 
     return (
@@ -40,9 +41,9 @@ export const Navigation = (props) => {
                         value="subreddit"
                         checked={radio === 'subreddit'}
                         className="radio subreddit"
-                        onChange={(e) => handleChange(e.currentTarget.value)}
+                        
                     />
-                    <label>
+                    <label onClick={() => handleClick('subreddit')}>
                         Subreddit
                     </label>
                     <input
@@ -51,9 +52,9 @@ export const Navigation = (props) => {
                         value="query"
                         checked={radio === 'query'}
                         className="radio query"
-                        onChange={(e) => handleChange(e.currentTarget.value)}
+                        
                     />
-                    <label>
+                    <label onClick={() => handleClick('query')}>
                         Search Query
                     </label>
                 </form>
