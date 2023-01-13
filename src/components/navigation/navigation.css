@@ -91,7 +91,7 @@ form {
     right: 1.5rem;
 }
 
-form label input {
+form input {
     visibility: hidden;
     position: fixed;
 }
@@ -105,3 +105,13 @@ form label {
     border: .1rem inset #4e4e4e;
     border-radius: .3rem;
 }
+
+form label:hover {
+    background-color: rgba(255, 240, 181, .8);
+}
+
+form input[type="radio"]:checked + label {
+    background-color: yellowgreen;
+    border: .1rem solid black;
+}
+

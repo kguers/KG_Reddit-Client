@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './navigation.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectType } from '../../features/PostList/postsSlice';
 
-export default function Navigation() {
-    const [radio, setRadio] = useState('subreddit');
+export const Navigation = (props) => {
+    const [radio, setRadio] = useState('query');
+    const currentType = useSelector(selectType);
+    const dispatch = useDispatch();
+
+    const handleChange = (e) => {
+        setRadio(e);
+        dispatch(selectType({ type: e }));
+    }
 
     return (
         <nav>
@@ -25,24 +34,26 @@ export default function Navigation() {
                 </div>
 
                 <form> {/*Use onChange to handle switch of radio buttons */}
+                    <input
+                        type="radio"
+                        name="subreddit"
+                        value="subreddit"
+                        checked={radio === 'subreddit'}
+                        className="radio subreddit"
+                        onChange={(e) => handleChange(e.currentTarget.value)}
+                    />
                     <label>
-                        <input
-                            type="radio"
-                            name="subreddit"
-                            value="subreddit"
-                            checked={radio === 'subreddit'}
-                            className="radio subreddit"
-                        />
                         Subreddit
                     </label>
+                    <input
+                        type="radio"
+                        name="query"
+                        value="query"
+                        checked={radio === 'query'}
+                        className="radio query"
+                        onChange={(e) => handleChange(e.currentTarget.value)}
+                    />
                     <label>
-                        <input
-                            type="radio"
-                            name="query"
-                            value="query"
-                            checked={radio === 'query'}
-                            className="radio query"
-                        />
                         Search Query
                     </label>
                 </form>
