@@ -24,8 +24,8 @@ export const loadSearch = createAsyncThunk(
 const postListSlice = createSlice({
     name: 'posts',
     initialState: {
-        posts: [],
-        searchType: '', //default search type
+        children: [],
+        searchType: 'query', //default search type
         isLoading: false,
         hasError: false,
     },
@@ -46,12 +46,12 @@ const postListSlice = createSlice({
         [loadSubreddit.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.hasError = false;
-            state.posts = action.payload.data.children;
+            state.children = action.payload.data.children;
         },
         [loadSearch.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.hasError = false;
-            state.posts = action.payload.data.children;
+            state.children = action.payload.data.children;
         },
         [loadSubreddit.rejected]: (state) => {
             state.isLoading = false;
@@ -65,7 +65,9 @@ const postListSlice = createSlice({
     }
 });
 
-export const selectType = (state) => state.searchType;
+export const selectType = (state) => state.posts.searchType;
+
+export const selectList = (state) => state.posts.children;
 
 export const { setSearchType } = postListSlice.actions;
 
